@@ -1,6 +1,20 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+using Serilog;
 
-app.MapGet("/", () => "Hello World!");
+namespace VbApi;
 
-app.Run();
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(config).CreateLogger();
+        Log.Information("App server is starting.");
+        
+        Host.CreateDefaultBuilder(args)
+            .UseSerilog()
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            }).Build().Run();
+    }
+}
