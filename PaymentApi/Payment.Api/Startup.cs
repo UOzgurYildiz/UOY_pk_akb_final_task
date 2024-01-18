@@ -14,9 +14,7 @@ using Payment.Base.Token;
 using Payment.Data;
 using Payment.Business.Cqrs;
 using Payment.Business.Mapper;
-using Payment.Business.Service;
 using Payment.Business.Validator;
-using PaymentApi.Middleware;
 
 namespace PaymentApi;
 
@@ -35,19 +33,16 @@ public class Startup
         services.AddDbContext<PaymentDbContext>(options => options.UseSqlServer(connection));
         //services.AddDbContext<PaymentDbContext>(options => options.UseNpgsql(connection));
         
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateCustomerCommand).GetTypeInfo().Assembly));
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateReimbursementCommand).GetTypeInfo().Assembly));
 
         var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new MapperConfig()));
         services.AddSingleton(mapperConfig.CreateMapper());
         
-        services.AddSingleton<Service1>();
-        services.AddTransient<Service1>();
-        services.AddScoped<Service1>();
 
 
         services.AddControllers().AddFluentValidation(x =>
         {
-            x.RegisterValidatorsFromAssemblyContaining<CreateCustomerValidator>();
+            x.RegisterValidatorsFromAssemblyContaining<CreateReimbursementValidator>();
         });
         
         services.AddEndpointsApiExplorer();
@@ -130,7 +125,7 @@ public class Startup
         services.AddHangfireServer();
 
 
-        services.AddScoped<INotificationService, NotificationService>();
+        // services.AddScoped<INotificationService, NotificationService>();
 
     }
     
@@ -142,9 +137,6 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
-        app.UseMiddleware<HeartBeatMiddleware>(); 
-        app.UseMiddleware<ErrorHandlerMiddleware>(); 
         
         app.UseHttpsRedirection();
 

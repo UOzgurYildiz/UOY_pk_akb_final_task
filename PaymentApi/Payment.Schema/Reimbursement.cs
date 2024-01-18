@@ -12,5 +12,5 @@ public class ReimbursementResponse: BaseResponse
 {
     public decimal Amount {get; set;}
 
-    public virtual EmployeeResponse Employee {get; set;}
+   // public virtual EmployeeResponse Employee {get; set;}
 }

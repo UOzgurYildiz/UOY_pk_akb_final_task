@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-      <ProjectReference Include="..\Vb.Base\Vb.Base.csproj" />
+      <ProjectReference Include="..\Payment.Base\Payment.Base.csproj" />
     </ItemGroup>
 
 </Project>
