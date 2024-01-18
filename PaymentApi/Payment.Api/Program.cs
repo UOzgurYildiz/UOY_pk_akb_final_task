@@ -1,6 +1,6 @@
 using Serilog;
 
-namespace VbApi;
+namespace PaymentApi;
 
 public class Program
 {

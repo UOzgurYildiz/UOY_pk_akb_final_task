@@ -26,7 +26,7 @@ public class ReimbursementController : ControllerBase
     }
 
     [HttpPost("Reimbursement")]
-    [Authorize(Roles = "employee"]
+    [Authorize(Roles = "employee")]
     public async Task<ApiResponse<ReimbursementResponse>> Reimbursement([FromBody] ReimbursementRequest request)
     {
         var operation = new CreateReimbursementCommand(request);

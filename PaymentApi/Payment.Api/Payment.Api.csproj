@@ -5,7 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <RootNamespace>VbApi</RootNamespace>
+        <RootNamespace>PaymentApi</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

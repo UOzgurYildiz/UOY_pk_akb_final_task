@@ -1,5 +1,5 @@
 using MediatR;
-using Payment.Base.Rsponse;
+using Payment.Base.Response;
 using Payment.Schema;
 
 namespace Payment.Business.Cqrs;
