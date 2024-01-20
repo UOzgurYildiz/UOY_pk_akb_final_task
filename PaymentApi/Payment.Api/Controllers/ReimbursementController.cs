@@ -15,20 +15,34 @@ namespace PaymentApi.Controllers;
 public class ReimbursementController : ControllerBase
 {
     private readonly IMediator mediator;
-    private readonly IMemoryCache memoryCache;
-    private readonly IDistributedCache distributedCache;
 
     public ReimbursementController(IMediator mediator, IMemoryCache memoryCache, IDistributedCache distributedCache)
     {
         this.mediator = mediator;
-        this.memoryCache = memoryCache;
-        this.distributedCache = distributedCache;
     }
 
     [HttpPost("Reimbursement")]
-    public async Task<ApiResponse<ReimbursementResponse>> Reimbursement([FromBody] ReimbursementRequest request)
+    public async Task<ApiResponse<ReimbursementResponse>> Post([FromBody] ReimbursementRequest request)
     {
         var operation = new CreateReimbursementCommand(request);
+        var result = await mediator.Send(operation);
+
+        return result;
+    }
+
+    [HttpPut("Reimbursement")]
+    public async Task<ApiResponse> Put([FromBody] ReimbursementRequest request)
+    {
+        var operation = new UpdateReimbursementCommand(request);
+        var result = await mediator.Send(operation);
+
+        return result;
+    }
+
+    [HttpDelete("Reimbursement")]
+    public async Task<ApiResponse> Delete([FromBody] ReimbursementRequest request)
+    {
+        var operation = new UpdateReimbursementCommand(request);
         var result = await mediator.Send(operation);
 
         return result;
