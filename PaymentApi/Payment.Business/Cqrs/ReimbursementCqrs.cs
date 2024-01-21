@@ -10,4 +10,4 @@ public record DeleteReimbursementCommand(int ReferenceNumber) : IRequest<ApiResp
 
 public record GetAllReimbursementQuery() : IRequest<ApiResponse<List<ReimbursementResponse>>>;
 public record GetReimbursementByIdQuery(int Id) : IRequest<ApiResponse<ReimbursementResponse>>;
-public record GetReimbursementByParameterQuery(string FirstName,string LastName,string IdentityNumber) : IRequest<ApiResponse<List<ReimbursementResponse>>>;
+public record GetReimbursementByParameterQuery(string EmployeeName,int? ReferenceNumber,string Category) : IRequest<ApiResponse<List<ReimbursementResponse>>>;
