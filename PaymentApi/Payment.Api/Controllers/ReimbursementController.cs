@@ -22,7 +22,7 @@ public class ReimbursementController : ControllerBase
     }
 
      [HttpGet]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, employee")]
     public async Task<ApiResponse<List<ReimbursementResponse>>> Get()
     {
         var operation = new GetAllReimbursementQuery();
@@ -31,7 +31,7 @@ public class ReimbursementController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, employee")]
     [ResponseCache]
     public async Task<ApiResponse<ReimbursementResponse>> Get(int id)
     {
@@ -41,7 +41,7 @@ public class ReimbursementController : ControllerBase
     }
 
     [HttpGet("ByParameters")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, employee")]
     public async Task<ApiResponse<List<ReimbursementResponse>>> GetByParameter(
         [FromQuery] string? EmployeeName,
         [FromQuery] int? ReferenceNumber,
@@ -53,6 +53,7 @@ public class ReimbursementController : ControllerBase
     }
 
     [HttpPost("Reimbursement")]
+    [Authorize(Roles = "admin")]
     public async Task<ApiResponse<ReimbursementResponse>> Post([FromBody] ReimbursementRequest request)
     {
         var operation = new CreateReimbursementCommand(request);
@@ -62,6 +63,7 @@ public class ReimbursementController : ControllerBase
     }
 
     [HttpPut("Reimbursement")]
+    [Authorize(Roles = "admin")]
     public async Task<ApiResponse> Put([FromBody] ReimbursementRequest request)
     {
         var operation = new UpdateReimbursementCommand(request);
@@ -70,10 +72,11 @@ public class ReimbursementController : ControllerBase
         return result;
     }
 
-    [HttpDelete("Reimbursement")]
-    public async Task<ApiResponse> Delete([FromBody] ReimbursementRequest request)
+    [HttpDelete("{ReferenceNumber}")]
+    [Authorize(Roles = "admin")]
+    public async Task<ApiResponse> Delete(int ReferenceNumber)
     {
-        var operation = new UpdateReimbursementCommand(request);
+        var operation = new DeleteReimbursementCommand(ReferenceNumber);
         var result = await mediator.Send(operation);
 
         return result;
