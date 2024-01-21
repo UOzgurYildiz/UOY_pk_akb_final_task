@@ -48,7 +48,7 @@ public class Startup
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Vb Api Management", Version = "v1.0" });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Payment Api Management", Version = "v1.0" });
 
             var securityScheme = new OpenApiSecurityScheme
             {
